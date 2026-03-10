@@ -25,9 +25,9 @@ spec:
             - name: NODE_ENV
               value: development
             - name: REDIS_PORT
-              value: "19829"
-            - name: SECRETS_PATH
-              value: /mnt/secrets
+              value: "15814"
+            # - name: SECRETS_PATH
+            #   value: /mnt/secrets
             - name: CLOUDFLARE_API_URL
               value: https://api.cloudflare.com
             - name: COOKIE_NAME
