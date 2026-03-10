@@ -21,6 +21,15 @@ if (config.redisDB) {
 
 // Log redis url
 console.log("REDIS URL:", redisUrl.replace(config.redisPassword, "****"));
+
+// Simulate heavy synchronous startup work
+function blockEventLoop() {
+    const start = Date.now();
+    while (Date.now() - start < 3000) { } // block for 3 seconds
+}
+
+blockEventLoop(); // call before redis connects
+
 // let pubClient = redis.createClient(redisOptions);
 const pubClient = redis.createClient({ url: redisUrl });
 let subClient = pubClient.duplicate();
