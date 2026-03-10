@@ -1,37 +1,50 @@
 name: CICD Dev
+
 on:
   push:
     branches:
       - dev
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: "Checkout code"
         uses: "actions/checkout@v4"
         with:
-          fetch-depth: 100
+          fetch-depth: 100 # If you want to use merge-base
+
       - id: "auth"
         uses: "google-github-actions/auth@v2"
         with:
           project_id: "${{ secrets.DEV_PROJECT_ID }}"
           credentials_json: "${{ secrets.CICDSA }}"
+
       - name: "Set up Google Cloud SDK"
         uses: "google-github-actions/setup-gcloud@v2"
         with:
           install_components: "gke-gcloud-auth-plugin,kubectl"
+          # export_default_credentials: true # deprecated
+
       - name: "Configure Docker to use gcloud as a credential helper"
         run: |
           gcloud auth configure-docker ${{ secrets.DEV_REGION }}-docker.pkg.dev --quiet
-      - name: "Ensure Docker uses gcloud creds"
+
+      - name: "Ensure Docker uses gcloud creds (fallback if configuration on docker fails)"
         run: |
           echo '{ "credHelpers": { "'${{ secrets.DEV_REGION }}'-docker.pkg.dev": "gcloud" } }' > ~/.docker/config.json
-      - name: "Build and deploy"
+
+      - name: "Build and push changed services"
+        env:
+          DOMAIN_NAME: ${{ secrets.DOMAIN_NAME }}
+          REGISTRY: ${{ secrets.GOOGLE_ARTIFACT_REPO_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.GOOGLE_ARTIFACT_REPO_NAME }}
+
         run: |
-          chmod +x ./build_ga.sh
+          chmod +x ./build_ga.sh && \
           ./build_ga.sh \
-          --cluster "${{ secrets.DEV_GKE_CLUSTER_NAME }}" \
-          --zone "${{ secrets.DEV_ZONE }}" \
-          --repo-name "${{ secrets.DEV_ARTIFACT_REPO }}" \
-          --repo-region "${{ secrets.DEV_REGION }}" \
-          --project-id "${{ secrets.DEV_PROJECT_ID }}"
+          --cluster ${{ secrets.DEV_GKE_CLUSTER_NAME }} \
+          --zone ${{ secrets.DEV_ZONE }} \
+          --repo-name ${{ secrets.DEV_ARTIFACT_REPO }} \
+          --repo-region ${{ secrets.DEV_REGION }} \
+          --project-id ${{ secrets.DEV_PROJECT_ID }}
