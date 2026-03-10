@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-test-ms-deployment
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: redis-test-ms
+  template:
+    metadata:
+      labels:
+        component: redis-test-ms
+    spec:
+      serviceAccountName: secret-accessor
+      containers:
+      - name: redis-test-ms
+        image: us-central1-docker.pkg.dev/inhouz-dev/inhouz-dev-repo/redis_test_ms:latest
+        ports:
+          - containerPort: 5099
+        env:
+          - name: PORT
+            value: '5099'
+          - name: NODE_ENV
+            value: production
+          - name: REDIS_PORT
+            value: '15814'
+          - name: SECRETS_PATH
+            value: /mnt/secrets
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        volumeMounts:
+          - name: redis-test-ms-gcp-secrets
+            mountPath: /mnt/secrets
+            readOnly: true
+      volumes:
+        - name: redis-test-ms-gcp-secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: redis-test-ms-gcp-secrets
+      imagePullSecrets:
+        - name: regcred
