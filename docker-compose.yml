@@ -1,0 +1,31 @@
+version: "3.4"
+
+services:
+  node: 
+    build:
+      context: .
+    image: simple_ms
+    environment:
+      NODE_ENV: development
+    ports:
+      - "5001:5001"
+    volumes:
+      - .:/usr/src/app:delegated
+      - ./package.json:/usr/src/app/package.json
+      - ./package-lock.json:/usr/src/app/package-lock.json
+      - notused:/usr/src/app/node_modules
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:latest
+    ports: 
+      - "27017:27017"
+    healthcheck:
+      test: "[ `echo 'db.runCommand(\"ping\").ok' | mongo localhost/example-database --quiet` ] && echo 0 || echo 1"
+      interval: 30s
+      start_period: 10s
+      timeout: 4s
+      retries: 3
+    
+volumes:
+  notused:

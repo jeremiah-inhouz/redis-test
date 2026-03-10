@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bas#!/bin/bash
 set -euo pipefail
 SHA=$(git rev-parse --short HEAD)
 
@@ -58,4 +58,4 @@ fi
 
 kubectl apply -f k8s/secret-provider-class.yaml
 kubectl apply -f k8s/deployment.yaml
-kubectl set image deployment/redis-test-ms-deployment redis-test-ms="${IMAGE}:${SHA}" -n dev
+kubectl set image deployment/redis-test-ms-deployment redis-test-ms="${IMAGE}:${SHA}" -n dever-ms-deployment app-builder-ms="${IMAGE}:${SHA}" -n dev
