@@ -35,6 +35,10 @@ jobs:
         run: |
           echo '{ "credHelpers": { "'${{ secrets.DEV_REGION }}'-docker.pkg.dev": "gcloud" } }' > ~/.docker/config.json
 
+      - name: "Debug registry"
+        run: |
+          echo "Registry: ${{ secrets.GOOGLE_ARTIFACT_REPO_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.DEV_ARTIFACT_REPO }}"
+
       - name: "Build and push changed services"
         env:
           DOMAIN_NAME: ${{ secrets.DOMAIN_NAME }}
