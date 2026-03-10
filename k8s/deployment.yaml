@@ -23,11 +23,189 @@ spec:
             - name: PORT
               value: "5099"
             - name: NODE_ENV
-              value: production
+              value: development
             - name: REDIS_PORT
-              value: "15814"
+              value: "19829"
             - name: SECRETS_PATH
               value: /mnt/secrets
+            - name: CLOUDFLARE_API_URL
+              value: https://api.cloudflare.com
+            - name: COOKIE_NAME
+              value: SMPL
+            - name: CUSTOM_DOMAIN_TERMINATION_QUEUE_MODEL
+              value: customDomainTerminationQueue
+            - name: CUSTOM_DOMAIN_LOG_MODEL
+              value: customDomainLogs
+            - name: INHOUZ_SUBSCRIPTIONS_MODEL
+              value: inhouzSubscriptions
+            - name: FLEX_COLLECTION_MODEL
+              value: flexCollections
+            - name: INHOUZ_FROM_EMAIL
+              value: noreply@inhouz.io
+            - name: ROLE_MODEL
+              value: roles
+            - name: SAVED_APP_ELEMENT_MODEL
+              value: savedAppElements
+            - name: USER_MODEL
+              value: User
+            - name: APP_BUILD_MODEL
+              value: appBuilds
+            - name: WEB_COMPONENT_ACCESS_TRACKER
+              value: webComponentAccessTracker
+            - name: APP_BUILD_REPORT_MODEL
+              value: appBuildReport
+            - name: APP_DEPLOYMENT_QUEUE_MODEL
+              value: appDeploymentQueue
+            - name: APP_DEPLOYMENT_QUEUE_LOG_MODEL
+              value: appDeploymentQueueLogs
+            - name: COMPANY_MODEL
+              value: company
+            - name: PERMISSION_MODEL
+              value: permissions
+            - name: USER_ROLES_MODEL
+              value: userRoles
+            - name: SESSION_MODEL
+              value: session
+            - name: SESSION_VALIDATOR_MODEL
+              value: sessionValidator
+            - name: AUTH_LOG_MODEL
+              value: authenticationLogs
+            - name: COOKIE_DOMAIN
+              value: .inhouz.io
+            - name: SUBSCRIBER_MODEL
+              value: subscribers
+            - name: SUBSCRIPTION_SERVICE_MODEL
+              value: subscriptionServices
+            - name: SUBSCRIBER_CHANGE_LOG
+              value: subscriberChangeLogs
+            - name: SUBSCRIPTION_USAGE_LOG
+              value: subscriberUsageLogs
+            - name: VERSION_TRACKER_MODEL
+              value: versionTracker
+            - name: FLEX_API_MODEL
+              value: flexApi
+            - name: SUBSCRIBER_ACTION_LOG_MODEL
+              value: subscriberActionLogs
+            - name: SUBSCRIBER_MIGRATION_QUEUE_MODEL
+              value: subscriberMigrationQueue
+            - name: SERVICE_DISCOUNT_MODEL
+              value: serviceDiscounts
+            - name: CUSTOMERS_MODEL
+              value: customers
+            - name: CONTACTS_MODEL
+              value: contacts
+            - name: PAYMENT_CHARGE_MODEL
+              value: paymentCharges
+            - name: PAYOUT_ACCOUNT_MODEL
+              value: payoutAccounts
+            - name: PAYMENT_METHOD_MODEL
+              value: paymentMethods
+            - name: PAYMENT_INTENT_MODEL
+              value: paymentIntents
+            - name: SUBSCRIPTION_SESSION_MODEL
+              value: subscriptionSessions
+            - name: OPEN_EXCHANGE_RATES_BASE_URL
+              value: https://openexchangerates.org/api
+            - name: SUBSCRIPTION_SERVICE_CHARGE_FEE
+              value: "3"
+            - name: SUBSCRIPTION_SERVICE_CHARGE_TYPE
+              value: subscription service
+            - name: PAYMENT_MS_URL
+              value: http://payment-ms-cluster-ip-service:5014
+            - name: APP_BUILDER_MS_URL
+              value: http://app-builder-ms-cluster-ip-service:5016
+            - name: CHURN_TRACKER_MODEL
+              value: churnTracker
+            - name: EXCHANGE_RATE_CACHE_MODEL
+              value: exchangeRateCache
+            - name: SUBSCRIPTION_MODEL
+              value: subscriptions
+            - name: INHOUZ_APP_MODEL
+              value: inhouzApps
+            - name: APP_ELEMENT_MODEL
+              value: appElements
+            - name: PERSONALIZED_APP_BUILDER_SETTINGS_MODEL
+              value: personalizedAppBuilderSettings
+            - name: AB_TESTS_MODEL
+              value: abTests
+            - name: APP_ACCESS_PASSWORD_MODEL
+              value: appAccessPasswords
+            - name: SAVED_APP_STYLES
+              value: savedAppStyles
+            - name: STYLE_GUIDE_MODEL
+              value: styleGuides
+            - name: ADMIN_DEVELOPER_PERMISSION
+              value: adminDeveloper
+            - name: APP_PRODUCTION_DEPLOYMENT_PERMISSION
+              value: appProductionDeployment
+            - name: DELETE_APP_PERMISSION
+              value: deleteUIApp
+            - name: EXTERNAL_USER_EDITOR_ACCESS_LOG_MODEL
+              value: externalUserEditorAccessLogs
+            - name: APP_BUILDER_EXTERNAL_ACCESS_MODEL
+              value: appBuilderExternalAccess
+            - name: APP_FOLDER_MODEL
+              value: appFolders
+            - name: UI_DEVELOPER_PERMISSION
+              value: uiDeveloper
+            - name: API_DEVELOPER_PERMISSION
+              value: apiDeveloper
+            - name: FUNCTION_MODEL
+              value: functions
+            - name: APP_PAGE_MODEL
+              value: appPages
+            - name: OPERATION_TRACKER_MODEL
+              value: operationTracker
+            - name: PAGE_UPDATE_QUEUE_MODEL
+              value: pageUpdateQueue
+            - name: APP_BUILDER_SOCKET_TRACKER_MODEL
+              value: appBuilderSocketTracker
+            - name: FUNCTION_VERSION_TRACKER_MODEL
+              value: functionVersionTracker
+            - name: APP_ELEMENT_UPDATE_QUEUE_MODEL
+              value: appElementUpdateQueue
+            - name: APP_UPDATE_QUEUE_MODEL
+              value: appUpdateQueue
+            - name: IP_ADDRESS_LOCATION_MODEL
+              value: ipAddressLocations
+            - name: IP_LOCATION_FINDER_URL
+              value: http://ip-api.com/json
+            - name: SUBSCRIBED_PACKAGE_MODEL
+              value: subscribedPackages
+            - name: SYSTEM_USER_MODEL
+              value: systemUsers
+            - name: STATIC_BASE64_FILE_MODEL
+              value: staticBase64Files
+            - name: INHOUZ_SIGN_STATIC_FILE_MODEL
+              value: inhouzSignStaticFiles
+            - name: INHOUZ_CLOUD_STORAGE_FILE_MODEL
+              value: inhouzCloudStorageFiles
+            - name: FILE_STORAGE_SERVICE_MODEL
+              value: fileStorageServices
+            - name: INHOUZ_SIGN_DRAFT_BUCKET_NAME
+              value: inhouz_sign_draft_pdf_image_files
+            - name: INHOUZ_SIGN_ATTACHMENT_BUCKET_NAME
+              value: inhouz_sign_attachment_files
+            - name: INHOUZ_SIGN_COMPLETED_DOCUMENT_BUCKET_NAME
+              value: inhouz_sign_completed_document_files
+            - name: INHOUZ_SIGN_DOC_MODEL
+              value: inhouzSignDocs
+            - name: INHOUZ_SIGN_TEMPLATE_MODEL
+              value: inhouzSignTemplates
+            - name: QUERY_KEY_TRACKER_MODEL
+              value: queryKeyTracker
+            - name: PDF_GENERATOR_TEMPLATE_MODEL
+              value: pdfGeneratorTemplates
+            - name: INHOUZ_PDF_GENERATOR_DRAFT_BUCKET_NAME
+              value: inhouz_pdf_generator_draft_files
+            - name: INHOUZ_APP_COMMIT_MODEL
+              value: inhouzAppCommits
+            - name: INHOUZ_APP_REBASE_FALLBACK_LOG_MODEL
+              value: inhouzAppRebaseFallbackLogs
+            - name: APP_PAGE_BUILD_MODEL
+              value: appPageBuilds
+            - name: DEPLOYED_FUNCTION_MODEL
+              value: deployedFunctions
           resources:
             requests:
               memory: "256Mi"
