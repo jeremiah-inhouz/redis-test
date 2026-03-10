@@ -5,37 +5,49 @@ const app = express();
 const config = require("./config/config")();
 const server = http.createServer(app);
 const redis = require("redis");
-const { createAdapter } = require("@socket.io/redis-adapter");
 
+const { createAdapter } = require("@socket.io/redis-adapter");
 let redisUrl = `redis://default:${config.redisPassword}@${config.redisHost}:${process.env.REDIS_PORT}`;
+// const os = require('os');
+// let redisOptions = {
+//     host: process.env.REDIS_HOST,
+//     password : process.env.REDIS_PASSWORD,
+//     port : Number(process.env.REDIS_PORT),
+// }
 if (config.redisDB) {
+    // redisOptions['db'] = config.redisDB;
     redisUrl = redisUrl + `/${config.redisDB}`;
 }
 
+// Log redis url
 console.log("REDIS URL:", redisUrl.replace(config.redisPassword, "****"));
-
+// let pubClient = redis.createClient(redisOptions);
 const pubClient = redis.createClient({ url: redisUrl });
-const subClient = pubClient.duplicate();
+let subClient = pubClient.duplicate();
 
-pubClient.on("error", (e) => console.log("pubClient error:", e.message));
-subClient.on("error", (e) => console.log("subClient error:", e.message));
+// Trying redis fix
+pubClient.on("error", (e) => console.log("pubClient error", e.message));
+subClient.on("error", (e) => console.log("subClient error", e.message));
 
 let io = require("socket.io")(server, {
-    path: "/redistest/socket.io",
+    path: "/appbuildersocket/socket.io",
     cors: {
-        origin: "*",
+        origin: /inhouz.localhost/,
         methods: ["GET", "POST"],
     },
+    maxHttpBufferSize: 100000000,
 });
+Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
+    io.adapter(createAdapter(pubClient, subClient));
+    // io.listen(3000);
+});
+// io.adapter(redisAdapter({ pubClient, subClient }));
+// pubClient.on('error', (err) => {
+//     console.log('pubClient error', err)
+//     process.exit(1);
+// })
 
-Promise.all([pubClient.connect(), subClient.connect()])
-    .then(() => {
-        io.adapter(createAdapter(pubClient, subClient));
-        console.log("Redis connected and socket.io adapter set successfully");
-    })
-    .catch((e) => {
-        console.log("Redis Promise.all failed:", e.message);
-    });
+module.exports.redisClient = pubClient;
 
 app.get("/health", (req, res) => {
     res.json({
