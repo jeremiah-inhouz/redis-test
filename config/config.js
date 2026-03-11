@@ -1,4 +1,4 @@
-const NodeRSA = require("node-rsa");
+const NodeRSA = require("node-rsa"const NodeRSA = require("node-rsa");
 const path = require("path");
 const fs = require("fs");
 
@@ -13,10 +13,14 @@ function readSecret(name, envFallback) {
     }
 }
 
+let cachedConfig = null;
+
 module.exports = () => {
+    if (cachedConfig) return cachedConfig;
+
     switch (process.env.NODE_ENV) {
         default:
-            return {
+            cachedConfig = {
                 flexformFileModel: process.env.FLEX_FORM_FILE_MODEL,
                 flexModuleModel: process.env.FLEX_MODULE_MODEL,
                 flexCollectionModel: process.env.FLEX_COLLECTION_MODEL,
@@ -148,5 +152,6 @@ module.exports = () => {
                     process.env.INHOUZ_APP_REBASE_FALLBACK_LOG_MODEL,
                 deployedFunctionModel: process.env.DEPLOYED_FUNCTION_MODEL,
             };
+            return cachedConfig;
     }
-};
+};)
