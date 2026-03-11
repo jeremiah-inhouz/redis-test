@@ -123,7 +123,7 @@ const getSocketIoInstance = function() {
 };
 module.exports.getSocketIoInstance = getSocketIoInstance;
 
-// require("./controller/appBuilder/appBuilderRoutes")(app);
+require("./controller/appBuilder/appBuilderRoutes")(app);
 if (![1, 2].includes(mongoose.connection.readyState)) {
     connectMongo();
 }
