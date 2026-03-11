@@ -1,4 +1,4 @@
-const NodeRSA = require("node-rsa"const NodeRSA = require("node-rsa");
+const NodeRSA = require("node-rsa");
 const path = require("path");
 const fs = require("fs");
 
@@ -154,4 +154,4 @@ module.exports = () => {
             };
             return cachedConfig;
     }
-};)
+};
